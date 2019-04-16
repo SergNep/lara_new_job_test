@@ -2,28 +2,43 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Task;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Repositories\TaskRepository;
 
 class TaskController extends Controller
 {
-    public function __construct()
+
+    /**
+     * Экземпляр TaskRepository.
+     *
+     * @var TaskRepository
+     */
+    protected $tasks;
+
+
+    public function __construct(TaskRepository $tasks)
     {
         $this->middleware('auth');
+
+        $this->tasks = $tasks;
     }
 
     /**
-     * Отображение списка всех задач пользователя.
+     * Показать список всех задач пользователя.
      *
-    * @param  Request  $request
-    * @return Response
-    */
+     * @param  Request  $request
+     * @return Response
+     */
     public function index(Request $request)
     {
-        return view('tasks.index');
+        return view('tasks.index', [
+            'tasks' => $this->tasks->forUser($request->user()),
+        ]);
     }
+
 
     /**
      * Создание новой задачи.
@@ -34,22 +49,15 @@ class TaskController extends Controller
     public function store(Request $request)
     {
 
-        //echo get_class($request); exit;
-
         $this->validate($request, [
             'name' => 'required|max:255',
         ]);
-
 
         $request->user()->tasks()->create([
             'name' => $request->name,
         ]);
 
-        $tasks = Task::where('user_id', $request->user()->id)->get();
-
-        return redirect('/tasks',
-            'tasks' => $tasks);
-
+        return redirect('/tasks');
         // Создание задачи...
     }
 
