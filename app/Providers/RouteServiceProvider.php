@@ -25,6 +25,11 @@ class RouteServiceProvider extends ServiceProvider
     {
         //
 
+        //Эта небольшая строчка заставит Laravel извлечь модель Task, соответствующую заданному ID, каждый раз, когда он видит {task} в объявлении маршрута.
+        //$this->model('task', 'App\Task'); //maybe don't work
+
+        Route::model('task', \App\Task::class); // maybe work
+
         parent::boot();
     }
 

@@ -17,11 +17,11 @@ Route::get('/', function () {
 
 
 
-Route::get('/test', function () {
-    return view('test');
-});
+//Route::get('/test', function () {
+//    return view('test');
+//});
 
-
+Route::get('/test', 'TaskController@test');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -57,3 +57,6 @@ Route::get('/tasks', 'TaskController@index');
 Route::post('/task', 'TaskController@store');
 Route::get('/task', 'TaskController@store'); //tmp
 Route::delete('/task/{task}', 'TaskController@destroy');
+
+Route::resource('photos', 'PhotoController');
+

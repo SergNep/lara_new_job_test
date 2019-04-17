@@ -51,10 +51,22 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
+//echo get_class($app);
+//echo '<pre>';
+//
+//$meth_arr = get_object_vars($app);
+// var_dump($meth_arr);
+//exit;
+
 $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
+//echo get_class($response);
+//exit;
 
 $response->send();
+
+
+
 
 $kernel->terminate($request, $response);

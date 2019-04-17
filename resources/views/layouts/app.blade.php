@@ -11,10 +11,12 @@
 <body>
 <div class="container">
     <nav class="navbar navbar-default">
-        <strong>Layout</strong>
+        <strong>Layout top</strong> <br />
     </nav>
 </div>
 
 @yield('content')
+
+<br /><strong>Layout footer</strong>
 </body>
 </html>

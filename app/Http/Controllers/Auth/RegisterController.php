@@ -40,6 +40,16 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function messages()
+    {
+        return [
+            'name.required' => 'A title is required7777777777',
+            'email.required'  => 'A message is required6666666666',
+            'password.confirmed' => 'asdfasdfasdf',
+        ];
+
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -52,7 +62,8 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        ],
+            $this->messages());
     }
 
     /**
